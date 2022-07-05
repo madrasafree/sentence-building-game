@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="he">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>תרגיל הרכבת משפטים</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</head>
+
+<body>
+    <main>
+        <header>
+            <div class="top-bar">
+                <div class="time-container">
+
+                    00:00
+
+                </div>
+
+                <div>
+                    <img src="media/play.png" width="80" />
+                </div>
+
+                <div class="top-buttons-container">
+                    <div>
+                        <i class="fa-solid fa-solid fa-volume-high"></i>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-arrow-rotate-right restart-btn"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <progress value="0" max="100"></progress>
+            </div>
+        </header>
+        <div class="words">
+            <div class="target">
+                <p></p>
+            </div>
+            <div class="destination"></div>
+            <div class="origin"></div>
+        </div>
+        <div class="results">
+            <p>ניקוד: <span class="score" style="color: red"> 0/10</span></p>
+            <!--         <span> כל אלאחתראם! כל הכבוד! </span> -->
+            <span> בַּסִיטַה! לא הצלחתם הפעם. נסו שוב</span>
+
+            <!--         <lottie-player
+          src="https://assets4.lottiefiles.com/packages/lf20_xldzoar8.json"
+          background="transparent"
+          speed="1"
+          loop
+          autoplay
+        ></lottie-player> -->
+
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Twemoji12_1f627.svg" width="120"
+                style="display:block;margin:20px auto">
+
+        </div>
+        <footer>
+            <div class="buttons">
+                <button class="check" disabled>בדיקה</button>
+                <button class="continue">המשך</button>
+                <button class="again">כַּמַאן מַרַّה - פעם נוספת</button>
+            </div>
+            <div class="answer"></div>
+        </footer>
+    </main>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
