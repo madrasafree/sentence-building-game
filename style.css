@@ -231,4 +231,5 @@ lottie-player {
 .top-buttons-container i{
     margin:6px;
      font-size:32px;
+     cursor:pointer;
 }

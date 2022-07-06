@@ -70,6 +70,8 @@ const continueBtn = document.querySelector(".continue");
 const againBtn = document.querySelector(".again");
 const results = document.querySelector(".results");
 
+document.querySelector(".restart-btn").onclick = () => location.reload();
+
 checkBtn.addEventListener("click", function () {
     continueBtn.style.display = "block";
     checkBtn.style.display = "none";
