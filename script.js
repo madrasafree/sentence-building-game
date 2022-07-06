@@ -24,7 +24,7 @@ function setBoard(data) {
         button.addEventListener("click", function (e) {
             if (isAnimating) return;
             this.closest(".word-container") ? move(this) : putback(this);
-            new Audio("media/flip.mp3").play();
+            if (allowSound) new Audio("media/flip.mp3").play();
         });
 
         button.addEventListener("click", function (e) {
@@ -61,6 +61,20 @@ function shuffle(array) {
 }
 
 let score = 10;
+let allowSound = true;
+if (localStorage.getItem('allowSound')) {
+    allowSound = JSON.parse(localStorage.getItem('allowSound'));
+}
+
+if (!allowSound) {
+    document.querySelector(".toggle-sound").classList.remove("fa-volume-high");
+    document.querySelector(".toggle-sound").classList.add("fa-volume-xmark");
+
+} else {
+    document.querySelector(".toggle-sound").classList.add("fa-volume-high");
+    document.querySelector(".toggle-sound").classList.remove("fa-volume-xmark");
+}
+
 const destination = document.querySelector(".destination");
 const origin = document.querySelector(".origin");
 const words = origin.querySelectorAll(".word");
@@ -71,6 +85,21 @@ const againBtn = document.querySelector(".again");
 const results = document.querySelector(".results");
 
 document.querySelector(".restart-btn").onclick = () => location.reload();
+
+document.querySelector(".toggle-sound").onclick = function () {
+
+    if (this.classList.contains("fa-volume-high")) {
+        this.classList.remove("fa-volume-high");
+        this.classList.add("fa-volume-xmark");
+        allowSound = false;
+
+    } else {
+        this.classList.add("fa-volume-high");
+        this.classList.remove("fa-volume-xmark");
+        allowSound = true;
+    }
+    localStorage.setItem('allowSound', allowSound);
+};
 
 checkBtn.addEventListener("click", function () {
     continueBtn.style.display = "block";
@@ -84,14 +113,13 @@ checkBtn.addEventListener("click", function () {
     });
 
     if (false) {
-
-        new Audio("media/correct.wav").play();
+        if (allowSound) new Audio("media/correct.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-check"></i>');
 
 
     } else {
         score -= 2;
-        new Audio("media/wrong.wav").play();
+        if (allowSound) new Audio("media/wrong.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-xmark"></i>');
     }
 });
@@ -115,8 +143,8 @@ continueBtn.addEventListener("click", function () {
         results.style.display = "block";
         checkBtn.style.display = "none";
         document.querySelector(".words").style.display = "none";
-        // new Audio("media/applause.wav").play();
-        new Audio("media/fail.mp3").play();
+        //  if(allowSound) new Audio("media/applause.wav").play();
+        if (allowSound) new Audio("media/fail.mp3").play();
     }
     currentScreen++;
     setProgress(currentScreen, screens);
