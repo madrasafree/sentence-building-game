@@ -193,13 +193,14 @@ continueBtn.addEventListener("click", function () {
 
         if (score >= 5) {
             document.querySelector(".result-msg").innerHTML = " כֻּלّ אִלְאִחְתִרַאם! כל הכבוד!";
-            document.querySelector(".result-image").innerHTML = `<lottie-player src="https://assets4.lottiefiles.com/packages/lf20_xldzoar8.json" background="transparent" speed="1" loop autoplay></lottie-player>`;
+            document.querySelector(".result-image .win").style.display = "block";
+            document.querySelector(".result-image .lose").style.display = "none";
             if (allowSound) new Audio("media/applause.wav").play();
             document.querySelector(".score").style.color = "green";
         } else {
             document.querySelector(".result-msg").innerHTML = " בַּסִיטַה! לא הצלחתם הפעם. נסו שוב!";
-            document.querySelector(".result-image").innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Twemoji12_1f627.svg" width="120"
-            style="display:block;margin:20px auto">`;
+            document.querySelector(".result-image .win").style.display = "none";
+            document.querySelector(".result-image .lose").style.display = "block";
             if (allowSound) new Audio("media/fail.mp3").play();
             document.querySelector(".score").style.color = "red";
         }
