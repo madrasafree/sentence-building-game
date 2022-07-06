@@ -281,7 +281,7 @@ lottie-player {
   padding: 20px;
   position: absolute;
   left: 50%;
-  top: 40%;
+  top: 35%;
   transform: translate(-50%, -50%);
   border-radius: 8px;
   display: block;
@@ -310,6 +310,7 @@ lottie-player {
 
 .top-bar > div.progress-container{
   flex:3;
+  margin:0 6px;
 }
 
 .top-bar .progress-container progress{
