@@ -296,7 +296,7 @@ lottie-player {
 .popup button {
   display: block;
   position: relative;
-  width: 80%;
+  width: 100%;
   margin: auto;
   text-align: center;
   background: #5f91c9;
@@ -306,4 +306,17 @@ lottie-player {
   border: none;
   cursor: pointer;
   padding: 4px 20px;
+}
+
+.top-bar > div.progress-container{
+  flex:3;
+}
+
+.top-bar .progress-container progress{
+  position:relative;
+  top:-8px;
+}
+
+.instructions{
+  margin:0 0 10px 0;
 }
