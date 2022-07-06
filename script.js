@@ -43,6 +43,22 @@ function setBoard(data) {
         });
     });
 }
+
+function setTime() {
+    ++totalSeconds;
+    secondsLabel.innerHTML = pad(totalSeconds % 60);
+    minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+    var valString = val + "";
+    if (valString.length < 2) {
+        return "0" + valString;
+    } else {
+        return valString;
+    }
+}
+
 function shuffle(array) {
     let currentIndex = array.length,
         randomIndex;
@@ -59,7 +75,8 @@ function shuffle(array) {
 
     return array;
 }
-
+let totalSeconds = 0;
+let timer;
 let score = 10;
 let allowSound = true;
 if (localStorage.getItem('allowSound')) {
@@ -75,6 +92,12 @@ if (!allowSound) {
     document.querySelector(".toggle-sound").classList.remove("fa-volume-xmark");
 }
 
+
+document.querySelector("#start_game-btn").addEventListener("click", function () {
+    timer = setInterval(setTime, 1000);
+    document.querySelector("#popup_container").style.display = "none";
+});
+
 const destination = document.querySelector(".destination");
 const origin = document.querySelector(".origin");
 const words = origin.querySelectorAll(".word");
@@ -83,6 +106,9 @@ const checkBtn = document.querySelector(".check");
 const continueBtn = document.querySelector(".continue");
 const againBtn = document.querySelector(".again");
 const results = document.querySelector(".results");
+
+const minutesLabel = document.getElementById("timer");
+const secondsLabel = document.getElementById("seconds");
 
 document.querySelector(".restart-btn").onclick = () => location.reload();
 
