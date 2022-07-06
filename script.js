@@ -24,7 +24,7 @@ function setBoard(data) {
         button.addEventListener("click", function (e) {
             if (isAnimating) return;
             this.closest(".word-container") ? move(this) : putback(this);
-            new Audio("/media/flip.mp3").play();
+            new Audio("media/flip.mp3").play();
         });
 
         button.addEventListener("click", function (e) {
@@ -83,13 +83,13 @@ checkBtn.addEventListener("click", function () {
 
     if (false) {
 
-        new Audio("/media/correct.wav").play();
+        new Audio("media/correct.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-check"></i>');
 
 
     } else {
         score -= 2;
-        new Audio("/media/wrong.wav").play();
+        new Audio("media/wrong.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-xmark"></i>');
     }
 });
@@ -113,8 +113,8 @@ continueBtn.addEventListener("click", function () {
         results.style.display = "block";
         checkBtn.style.display = "none";
         document.querySelector(".words").style.display = "none";
-        // new Audio("/media/applause.wav").play();
-        new Audio("/media/fail.mp3").play();
+        // new Audio("media/applause.wav").play();
+        new Audio("media/fail.mp3").play();
     }
     currentScreen++;
     setProgress(currentScreen, screens);
