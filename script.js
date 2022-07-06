@@ -9,6 +9,8 @@ function setBoard(data) {
     let target = document.querySelector(".target p");
     target.innerHTML = data.sentence;
 
+    correctOrder = data.words.filter(word => word.order >= 0).map(word => word.order);
+
     shuffle(data.words).forEach(function (item) {
         let block = document.createElement("div");
         let button = document.createElement("button");
@@ -30,7 +32,8 @@ function setBoard(data) {
         button.addEventListener("click", function (e) {
 
             let num = document.querySelectorAll(".destination .word").length;
-            console.log(num);
+
+
             if (num > 0) {
                 checkBtn.removeAttribute("disabled");
                 checkBtn.style.background = "#5f91c9";
@@ -75,6 +78,19 @@ function shuffle(array) {
 
     return array;
 }
+
+function arraysEqual(a, b) {
+    if (a === b) return true;
+    if (a == null || b == null) return false;
+    if (a.length !== b.length) return false;
+
+    for (var i = 0; i < a.length; ++i) {
+        if (a[i] !== b[i]) return false;
+    }
+    return true;
+}
+
+let correctOrder;
 let totalSeconds = 0;
 let timer;
 let score = 10;
@@ -130,6 +146,11 @@ document.querySelector(".toggle-sound").onclick = function () {
 checkBtn.addEventListener("click", function () {
     continueBtn.style.display = "block";
     checkBtn.style.display = "none";
+    let answers = []
+
+    document.querySelectorAll(".destination .word").forEach(function (word) {
+        answers.push(Number(word.dataset.order));
+    });
 
 
     document.querySelectorAll(".words button").forEach(function (btn) {
@@ -138,7 +159,7 @@ checkBtn.addEventListener("click", function () {
         checkBtn.style.background = "#5f91c98a";
     });
 
-    if (false) {
+    if (arraysEqual(answers, correctOrder)) {
         if (allowSound) new Audio("media/correct.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-check"></i>');
 
@@ -165,12 +186,27 @@ continueBtn.addEventListener("click", function () {
     continueBtn.style.display = "none";
     checkBtn.style.display = "block";
     if (currentScreen == screens) {
-        againBtn.style.display = "block";
-        results.style.display = "block";
+        clearInterval(timer);
         checkBtn.style.display = "none";
         document.querySelector(".words").style.display = "none";
-        //  if(allowSound) new Audio("media/applause.wav").play();
-        if (allowSound) new Audio("media/fail.mp3").play();
+        document.querySelector(".score").innerHTML = `${score}/10`;
+
+        if (score >= 5) {
+            document.querySelector(".result-msg").innerHTML = " כֻּלّ אִלְאִחְתִרַאם! כל הכבוד!";
+            document.querySelector(".result-image").innerHTML = `<lottie-player src="https://assets4.lottiefiles.com/packages/lf20_xldzoar8.json" background="transparent" speed="1" loop autoplay></lottie-player>`;
+            if (allowSound) new Audio("media/applause.wav").play();
+            document.querySelector(".score").style.color = "green";
+        } else {
+            document.querySelector(".result-msg").innerHTML = " בַּסִיטַה! לא הצלחתם הפעם. נסו שוב!";
+            document.querySelector(".result-image").innerHTML = `<img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Twemoji12_1f627.svg" width="120"
+            style="display:block;margin:20px auto">`;
+            if (allowSound) new Audio("media/fail.mp3").play();
+            document.querySelector(".score").style.color = "red";
+        }
+
+        againBtn.style.display = "block";
+        results.style.display = "block";
+
     }
     currentScreen++;
     setProgress(currentScreen, screens);
