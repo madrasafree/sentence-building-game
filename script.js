@@ -168,10 +168,14 @@ checkBtn.addEventListener("click", function () {
         score -= 2;
         if (allowSound) new Audio("media/wrong.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-xmark"></i>');
+        document.querySelector(".answer").innerHTML = "תשובה נכונה: " + data[currentScreen-1].answer;
+        
     }
 });
 
 continueBtn.addEventListener("click", function () {
+
+    document.querySelector(".answer").innerHTML = "";
 
 
     checkBtn.setAttribute("disabled", true);
@@ -195,13 +199,13 @@ continueBtn.addEventListener("click", function () {
             document.querySelector(".result-msg").innerHTML = " כֻּלّ אִלְאִחְתִרַאם! כל הכבוד!";
             document.querySelector(".result-image .win").style.display = "block";
             document.querySelector(".result-image .lose").style.display = "none";
-            if (allowSound) new Audio("media/applause.wav").play();
+            // if (allowSound) new Audio("media/applause.wav").play();
             document.querySelector(".score").style.color = "green";
         } else {
             document.querySelector(".result-msg").innerHTML = " בַּסִיטַה! לא הצלחתם הפעם. נסו שוב!";
             document.querySelector(".result-image .win").style.display = "none";
             document.querySelector(".result-image .lose").style.display = "block";
-            if (allowSound) new Audio("media/fail.mp3").play();
+            // if (allowSound) new Audio("media/fail.mp3").play();
             document.querySelector(".score").style.color = "red";
         }
 
