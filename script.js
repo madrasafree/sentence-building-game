@@ -93,7 +93,7 @@ function arraysEqual(a, b) {
 let correctOrder;
 let totalSeconds = 0;
 let timer;
-let score = 10;
+let score = data.length;
 let allowSound = true;
 if (localStorage.getItem('allowSound')) {
     allowSound = JSON.parse(localStorage.getItem('allowSound'));
@@ -165,7 +165,7 @@ checkBtn.addEventListener("click", function () {
 
 
     } else {
-        score -= 2;
+        score -= 1;
         if (allowSound) new Audio("media/wrong.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-xmark"></i>');
         document.querySelector(".answer").innerHTML = "תשובה נכונה: " + data[currentScreen-1].answer;
@@ -193,19 +193,19 @@ continueBtn.addEventListener("click", function () {
         clearInterval(timer);
         checkBtn.style.display = "none";
         document.querySelector(".words").style.display = "none";
-        document.querySelector(".score").innerHTML = `${score}/10`;
+        document.querySelector(".score").innerHTML = `${score}/${data.length}`;
 
-        if (score >= 5) {
+        if (score >= data.length / 2) {
             document.querySelector(".result-msg").innerHTML = " כֻּלّ אִלְאִחְתִרַאם! כל הכבוד!";
             document.querySelector(".result-image .win").style.display = "block";
             document.querySelector(".result-image .lose").style.display = "none";
-            // if (allowSound) new Audio("media/applause.wav").play();
+            if (allowSound) new Audio("media/applause.wav").play();
             document.querySelector(".score").style.color = "green";
         } else {
             document.querySelector(".result-msg").innerHTML = " בַּסִיטַה! לא הצלחתם הפעם. נסו שוב!";
             document.querySelector(".result-image .win").style.display = "none";
             document.querySelector(".result-image .lose").style.display = "block";
-            // if (allowSound) new Audio("media/fail.mp3").play();
+            if (allowSound) new Audio("media/fail.mp3").play();
             document.querySelector(".score").style.color = "red";
         }
 
