@@ -1,4 +1,4 @@
-let data = [
+let data2 = [
     {
         "sentence": "מאיפה אתה?",
         "answer": "מִן וֵין אִנְתֵ?",

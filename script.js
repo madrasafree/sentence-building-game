@@ -90,9 +90,46 @@ function arraysEqual(a, b) {
     return true;
 }
 
+function loadJson(url) {
+    var json;
+    $.ajax({
+        url: url,
+        async: false,
+        dataType: "json",
+        success: function (response) {
+            json = response;
+        },
+    });
+    return json;
+}
+
+function getParam(param) {
+    return new URLSearchParams(window.location.search).get(param);
+}
+
+
 let correctOrder;
 let totalSeconds = 0;
 let timer;
+let gameId = 1;
+
+if (getParam("id")) {
+    gameId = getParam("id");
+}
+
+let data = loadJson("data.json")[gameId];
+data.map(function(item){
+    item.words = [];
+    for(let i=0; i < item.correct.length; i++){
+        item.words.push({value:item.correct[i],order:i});
+    }
+
+    for(let i=0; i < item.incorrect.length; i++){
+        item.words.push({value:item.incorrect[i],order:-1});
+    }
+});
+
+
 let score = data.length;
 let allowSound = true;
 if (localStorage.getItem('allowSound')) {
@@ -168,8 +205,8 @@ checkBtn.addEventListener("click", function () {
         score -= 1;
         if (allowSound) new Audio("media/wrong.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-xmark"></i>');
-        document.querySelector(".answer").innerHTML = "תשובה נכונה: " + data[currentScreen-1].answer;
-        
+        document.querySelector(".answer").innerHTML = "תשובה נכונה: " + data[currentScreen - 1].answer;
+
     }
 });
 
