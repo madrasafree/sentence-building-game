@@ -10,6 +10,14 @@ function setBoard(data) {
     target.innerHTML = data.sentence;
 
     correctOrder = data.words.filter(word => word.order >= 0).map(word => word.order);
+    if (data.orders) {
+        orders = data.orders;
+    }
+    else {
+        orders = []
+       orders.push([...Array(data.correct.length).keys()]);
+    }
+
 
     shuffle(data.words).forEach(function (item) {
         let block = document.createElement("div");
@@ -90,6 +98,16 @@ function arraysEqual(a, b) {
     return true;
 }
 
+function checkCorrectness(answer, options) {
+    let isCorrect = false;
+    options.forEach(function (option) {
+        if (arraysEqual(answer, option)) {
+            isCorrect = true;
+        }
+    });
+    return isCorrect;
+}
+
 function loadJson(url) {
     var json;
     $.ajax({
@@ -109,6 +127,7 @@ function getParam(param) {
 
 
 let correctOrder;
+let orders;
 let totalSeconds = 0;
 let timer;
 let gameId = 1;
@@ -117,15 +136,15 @@ if (getParam("id")) {
     gameId = getParam("id");
 }
 
-let data = loadJson("data.json")[gameId];
-data.map(function(item){
+let data = loadJson("data/data.json")[gameId];
+data.map(function (item) {
     item.words = [];
-    for(let i=0; i < item.correct.length; i++){
-        item.words.push({value:item.correct[i],order:i});
+    for (let i = 0; i < item.correct.length; i++) {
+        item.words.push({ value: item.correct[i], order: i });
     }
 
-    for(let i=0; i < item.incorrect.length; i++){
-        item.words.push({value:item.incorrect[i],order:-1});
+    for (let i = 0; i < item.incorrect.length; i++) {
+        item.words.push({ value: item.incorrect[i], order: -1 });
     }
 });
 
@@ -196,10 +215,9 @@ checkBtn.addEventListener("click", function () {
         checkBtn.style.background = "#5f91c98a";
     });
 
-    if (arraysEqual(answers, correctOrder)) {
+    if (checkCorrectness(answers, orders)) {
         if (allowSound) new Audio("media/correct.wav").play();
         destination.insertAdjacentHTML('beforeEnd', '<i class="fa fa-solid fa-check"></i>');
-
 
     } else {
         score -= 1;
