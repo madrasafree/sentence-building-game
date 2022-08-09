@@ -137,6 +137,7 @@ if (getParam("id")) {
 }
 
 let data = loadJson("data/data.json")[gameId];
+console.log(data);
 data.map(function (item) {
     item.words = [];
     for (let i = 0; i < item.correct.length; i++) {
