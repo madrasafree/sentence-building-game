@@ -1,4 +1,6 @@
 
+
+
 function setProgress(currentScreen, screens) {
     progress.value = (currentScreen / (screens + 1)) * 100;
 }
@@ -15,7 +17,7 @@ function setBoard(data) {
     }
     else {
         orders = []
-       orders.push([...Array(data.correct.length).keys()]);
+        orders.push([...Array(data.correct.length).keys()]);
     }
 
 
@@ -87,6 +89,13 @@ function shuffle(array) {
     return array;
 }
 
+function getRandomSentences(number, sentences) {
+    return sentences.map((x) => ({ x, r: Math.random() }))
+      .sort((a, b) => a.r - b.r)
+      .map((a) => a.x)
+      .slice(0, number);
+  }
+
 function arraysEqual(a, b) {
     if (a === b) return true;
     if (a == null || b == null) return false;
@@ -137,7 +146,6 @@ if (getParam("id")) {
 }
 
 let data = loadJson("data/data.json")[gameId];
-console.log(data);
 data.map(function (item) {
     item.words = [];
     for (let i = 0; i < item.correct.length; i++) {
@@ -148,6 +156,9 @@ data.map(function (item) {
         item.words.push({ value: item.incorrect[i], order: -1 });
     }
 });
+
+
+data = getRandomSentences(6, data);
 
 
 let score = data.length;
