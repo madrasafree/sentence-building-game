@@ -134,6 +134,16 @@ function getParam(param) {
     return new URLSearchParams(window.location.search).get(param);
 }
 
+function setIframeWidth(){
+    let page = window.location.href;
+    console.log(page);
+    if(window.location !== window.parent.location){
+       let height = document.body.scrollHeight + 70;
+       window.parent.postMessage({height:height, page:page});
+    }
+}
+
+
 
 let correctOrder;
 let orders;
@@ -241,6 +251,8 @@ checkBtn.addEventListener("click", function () {
 });
 
 continueBtn.addEventListener("click", function () {
+
+    setIframeWidth();
 
     document.querySelector(".answer").innerHTML = "";
 
@@ -380,3 +392,5 @@ const putback = (word) => {
     container.removeAttribute("data-id");
     word.removeAttribute("data-id");
 };
+
+setIframeWidth();
