@@ -139,7 +139,7 @@ function setIframeWidth(){
     console.log(page);
     if(window.location !== window.parent.location){
        let height = document.body.scrollHeight + 70;
-       window.parent.postMessage({height:height, page:page});
+       window.parent.postMessage({height:height, page:page}, "*");
     }
 }
 
