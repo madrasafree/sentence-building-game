@@ -14,8 +14,10 @@
     </div>
 
     <script>
+       
         window.onmessage = function (e) {
             let { page, height } = e.data;
+            console.log("height:", height, " window: ", page);
             let iframe = document.querySelector(`iframe[src="${page}"]`);
             iframe.height = height;
         }
